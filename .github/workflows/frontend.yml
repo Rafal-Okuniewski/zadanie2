@@ -56,11 +56,9 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: docker-test
-          environment_name: dockertest-env
-          existing_bucket_name: elasticbeanstalk-us-east-2-XXXXXXXXXX
+          application_name: Zadanie 2
+          environment_name: Zadanie2-env
+          existing_bucket_name: elasticbeanstalk-us-east-1-035784104592
           version_label: "docker-app-${{ steps.format-time.outputs.replaced }}"
           region: us-east-2
           deployment_package: deploy.zip
-
-          
