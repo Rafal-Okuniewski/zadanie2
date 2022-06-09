@@ -48,6 +48,9 @@ jobs:
             s99175/zadanie2:v1
             ghcr.io/rafal-okuniewski/zadanie2:v1
 
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
         with:
