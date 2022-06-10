@@ -12,140 +12,9 @@ W zadaniu należy wykorzystać prostą aplikację, przygotowaną w ramach zadani
 
 ### CZĘŚĆ OBOWIĄZKOWA
 
-Proszę uruchomić przygotowaną aplikację na platformie AWS, usługa EBS. W tym celu należy wykorzystać przykład przedstawiony na laboratorium nr 3 (pliki: Lab3_AWS.pdf oraz Lab3_AWS_sources.zip).
+1. Proszę uruchomić przygotowaną aplikację na platformie AWS, usługa EBS. W tym celu należy wykorzystać przykład przedstawiony na laboratorium nr 3 (pliki: Lab3_AWS.pdf oraz Lab3_AWS_sources.zip).
 
-Wdrożenie aplikacji ma byż zrealizowane w oparciu o GitHub Action i załączony przykład pliku konfiguracyjnego, który jest dostępny na moodle w katalogu Zadanie 2 (plik: zad2_GHActions.zip)
-
-W sprawozdaniu proszę podać link do repozytorium GitHub oraz link do uruchomionej aplikacji w
-chmurze AWS.
-
-### CZĘŚĆ DODATKOWA
-
-Zadanie w tej części polega na rozbudowaniu pliku wdrożenia w GitHub Action. W ramach tego rozszerzenia:
-
-a. GitHub Ations ma zbudować obraz aplikacji i przesłać go na repozytorium DockerHub. Proszę w tym celu wykorzystać wiedzę i konfigurację przygotowaną w ramach zadania nr 1.
-
-b. Plik Docker Compose ma korzystać z gotowego obrazu (zbudowanego na wcześniejszych etapach pracy GHAction)
-
-c. Aplikacja ma zostać wdrożona w chmurze AWS, usługa EBS.
-W sprawozdaniu proszę podać link do repozytorium GitHub, DockerHub oraz link do uruchomionej
-aplikacji w chmurze AWS. 
-
-
-## Zadanie 1
-
-Proszę napisać program serwera (dowolny język programowania), który realizować będzie następującą funkcjonalność:
-a)	po uruchomieniu kontenera, serwer pozostawia w logach informację o dacie uruchomienia, imieniu i nazwisku autora serwera (imię i nazwisko studenta) oraz porcie TCP, na którym serwer nasłuchuje na zgłoszenia klienta.
-b)	na podstawie adresu IP klienta łączącego się z serwerem, w przeglądarce powinna zostać wyświetlona strona informująca o adresie IP klienta i na podstawie tego adresu IP, o dacie i godzinie w jego strefie czasowej.
-
-### server.js
-
-```
-'use strict';
-
-const express = require('express');
-const requestIp = require('request-ip');
-
-// Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
-
-// App
-const app = express();
-app.get('/', (req, res) => {
-  var clientIp = requestIp.getClientIp(req);
-  res.send('Client IP address: ' + clientIp + ' | Client date: ' + new Date().toLocaleString());
-});
-
-app.listen(PORT, HOST);
-console.log("Start time: " + new Date());
-console.log("Author: Rafał Okuniewski");
-console.log(`Running on http://${HOST}:${PORT}`);
-```
-
-
-## Zadanie 2
-Opracować plik Dockerfile, który pozwoli na zbudowanie obrazu kontenera realizującego funkcjonalność opisaną w punkcie 1. Przy ocenie brane będzie sposób opracowania tego pliku (dobór obrazu bazowego, wieloetapowe budowanie obrazu, ewentualne wykorzystanie warstwy scratch, optymalizacja pod kątem funkcjonowania cache-a w procesie budowania). Dockerfile powinien również zawierać informację o autorze tego pliku (ponownie imię i nazwisko studenta).
-
-### Dockerfile
-
-```
-ARG VERSION=1.10
-FROM node AS build
-ARG VERSION
-RUN mkdir -p /var/node
-WORKDIR /var/node
-ADD . ./
-RUN npm install
-
-FROM node:fermium-alpine3.15
-ENV NODE_ENV="production_${VERSION}"
-COPY --from=build /var/node /var/node
-WORKDIR /var/node
-EXPOSE 8080
-
-RUN echo "Author: Rafał Okuniewski"
-CMD [ "node", "server.js" ]
-```
-
-## Zadanie 3
-Należy podać polecenia niezbędne do: 
-
-a)	zbudowania opracowanego obrazu kontenera, 
-```
-docker build -t s99175/zadanie1 .
-```
-![alt text](images/a3.png)
-
-b)	uruchomienia kontenera na podstawie zbudowanego obrazu,
-```
-docker run -p 8080:8080  --name zadanie1 s99175/zadanie1
-```
-![alt text](images/b3.png)
- 
-c)	sposobu uzyskania informacji, które wygenerował serwer w trakcie uruchamiana kontenera (patrz: punkt 1a), 
-```
-docker logs zadanie1
-```
-![alt text](images/c3.png)
- 
- 
-d)	sprawdzenia, ile warstw posiada zbudowany obraz.
-```
-docker image inspect s99175/zadanie1 
-```
-![alt text](images/d3_1.png)
-
-```
-docker history s99175/zadanie1
-```
-![alt text](images/d3_2.png)
-
-
-Widok z przeglądarki: http://localhost:8080/
-
-![alt text](images/d3_3.png)
-
-
-
-## Zadanie 4
-
-Zbudować obrazy kontenera z aplikacją opracowaną w punkcie nr 1, które będą pracował na architekturach: linux/arm/v7, linux/arm64/v8 oraz linux/amd64. Obrazy te należy przesłać do swojego repozytorium na DockerHub. W sprawozdaniu należy podać wykorzystane instrukcje wraz z wynikiem ich działania I ewentualnymi komentarzami.
-
-DockerHub: https://hub.docker.com/r/s99175/zadanie1/tags
-
-```
-docker buildx build -t s99175/zadanie1:v1 --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --push .
-```
-
-![alt text](images/4.png)
-
-## Część dodatkowa 
-
-Wykonać punkt 4:
-- z wykorzystaniem GitHubActions
-
-Plik frontend.yml
+2. Wdrożenie aplikacji ma byż zrealizowane w oparciu o GitHub Action i załączony przykład pliku konfiguracyjnego, który jest dostępny na moodle w katalogu Zadanie 2 (plik: zad2_GHActions.zip)
 
 ```
 name: GitHub Action
@@ -156,7 +25,7 @@ on:
 
 jobs:
   build-push-images:
-    name: Budowa i publikacja obrazu z zadania 1 na repozytorium
+    name: Budowa i publikacja obrazu z zadania 2 na repozytorium
     runs-on: ubuntu-latest
 
     steps:
@@ -195,37 +64,87 @@ jobs:
           push: true
           platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
           tags: |
-            s99175/zadanie1:v1
-            ghcr.io/rafal-okuniewski/zadanie1:v1
+            s99175/zadanie2:v1
+            ghcr.io/rafal-okuniewski/zadanie2:v1
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: Zadanie 2
+          environment_name: Zadanie2-env
+          existing_bucket_name: elasticbeanstalk-us-east-1-035784104592
+          version_label: "docker-app-${{ steps.format-time.outputs.replaced }}"
+          region: us-east-1
+          deployment_package: deploy.zip
 ```
 
-Ustawienie sekretów logowania do DockerHub i GitHub Container Registry
-![alt text](images/extra1.png)
 
-Wyświetlenie poprawnego procesu budowania przygotowanego obrazu według parametrów wskazanych w zadaniu.
 
-![alt text](images/extra3.png)
+3. W sprawozdaniu proszę podać link do repozytorium GitHub oraz link do uruchomionej aplikacji w chmurze AWS.
 
-- z przesłaniem danych nie na DockerHub a na repozytorium GitHub wraz z krótkim opisem konfiguracji GitHub Container Registry
+Repozytorium GitHub: https://github.com/Rafal-Okuniewski/zadanie2
 
-Budowanie zostało skonfigurowane tak, aby wysyłać obraz na GitHub Container Registry oraz DockerHub. Dodanie przesyłania obrazu na Github Container Registry wiązało się z dodaniem klucza logowania do tej platformy jako sekretu oraz dodania sekcji logowania w pliku z rozszerzeniem .yml wraz z sekcją podania repozytorium oraz taga. 
+Aplikacja w chmurze AWS: http://zadanie2-env.eba-dq3zwxg2.us-east-1.elasticbeanstalk.com/
 
-### Logowanie
+### CZĘŚĆ DODATKOWA
+
+Zadanie w tej części polega na rozbudowaniu pliku wdrożenia w GitHub Action. W ramach tego rozszerzenia:
+
+a. GitHub Ations ma zbudować obraz aplikacji i przesłać go na repozytorium DockerHub. Proszę w tym celu wykorzystać wiedzę i konfigurację przygotowaną w ramach zadania nr 1.
+
 ```
-- name: Login to Github Packages
-uses: docker/login-action@v1
-with:
-  registry: ghcr.io
-  username: ${{ github.actor }}
-  password: ${{ secrets.GHCR_PAT }}
-```
-### Dodanie taga
-```
-ghcr.io/rafal-okuniewski/zadanie1:v1
+  - name: Login to DockerHub
+    uses: docker/login-action@v1 
+    with:
+      username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+  - name: Login to Github Packages
+    uses: docker/login-action@v1
+    with:
+      registry: ghcr.io
+      username: ${{ github.actor }}
+      password: ${{ secrets.GHCR_PAT }}
+
+  - name: Build and push
+    id: docker_build
+    uses: docker/build-push-action@v2
+    with:
+      context: ./
+      file: ./Dockerfile
+      push: true
+      platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
+      tags: |
+        s99175/zadanie2:v1
+        ghcr.io/rafal-okuniewski/zadanie2:v1
 ```
 
-### Repozytoria
 
-DockerHub: https://hub.docker.com/r/s99175/zadanie1/tags
+b. Plik Docker Compose ma korzystać z gotowego obrazu (zbudowanego na wcześniejszych etapach pracy GHAction)
 
-GitHub Container Registry: https://github.com/users/Rafal-Okuniewski/packages/container/package/zadanie1
+```
+version: '3'
+services:
+  web:
+    image: s99175/zadanie2:v1
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "5000:5000"
+```
+
+c. Aplikacja ma zostać wdrożona w chmurze AWS, usługa EBS.
+W sprawozdaniu proszę podać link do repozytorium GitHub, DockerHub oraz link do uruchomionej aplikacji w chmurze AWS. 
+
+Repozytorium GitHub: https://github.com/Rafal-Okuniewski/zadanie2
+
+Repozytorium DockerHub: https://hub.docker.com/repository/docker/s99175/zadanie2
+
+Aplikacja w chmurze AWS: http://zadanie2-env.eba-dq3zwxg2.us-east-1.elasticbeanstalk.com/
+
