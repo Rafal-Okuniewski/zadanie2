@@ -10,7 +10,7 @@ FROM node:fermium-alpine3.15
 ENV NODE_ENV="production_${VERSION}"
 COPY --from=build /var/node /var/node
 WORKDIR /var/node
-EXPOSE 8080
+EXPOSE 8081
 
 RUN echo "Author: Rafał Okuniewski"
 CMD [ "node", "server.js" ]
