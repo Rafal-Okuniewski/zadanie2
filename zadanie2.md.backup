@@ -11,7 +11,7 @@ Zadanie podzielone jest na dwie części : obowiązkową i dodatkową (nieobowi�
 W zadaniu należy wykorzystać prostą aplikację, przygotowaną w ramach zadania nr 1. (zadanie 1, część obowiązkowa, punkt 1)
 
 ### CZĘŚĆ OBOWIĄZKOWA
-
+1. (max. 100%)
 Proszę uruchomić przygotowaną aplikację na platformie AWS, usługa EBS. W tym celu należy wykorzystać przykład przedstawiony na laboratorium nr 3 (pliki: Lab3_AWS.pdf oraz Lab3_AWS_sources.zip).
 
 Wdrożenie aplikacji ma byż zrealizowane w oparciu o GitHub Action i załączony przykład pliku konfiguracyjnego, który jest dostępny na moodle w katalogu Zadanie 2 (plik: zad2_GHActions.zip)
@@ -22,11 +22,10 @@ chmurze AWS.
 ### CZĘŚĆ DODATKOWA
 
 Zadanie w tej części polega na rozbudowaniu pliku wdrożenia w GitHub Action. W ramach tego rozszerzenia:
-
-a. GitHub Ations ma zbudować obraz aplikacji i przesłać go na repozytorium DockerHub. Proszę w tym celu wykorzystać wiedzę i konfigurację przygotowaną w ramach zadania nr 1.
-
-b. Plik Docker Compose ma korzystać z gotowego obrazu (zbudowanego na wcześniejszych etapach pracy GHAction)
-
+a. GitHub Ations ma zbudować obraz aplikacji i przesłać go na repozytorium DockerHub. Proszę w
+tym celu wykorzystać wiedzę i konfigurację przygotowaną w ramach zadania nr 1.
+b. Plik Docker Compose ma korzystać z gotowego obrazu (zbudowanego na wcześniejszych
+etapach prazy GHAction)
 c. Aplikacja ma zostać wdrożona w chmurze AWS, usługa EBS.
 W sprawozdaniu proszę podać link do repozytorium GitHub, DockerHub oraz link do uruchomionej
 aplikacji w chmurze AWS. 
