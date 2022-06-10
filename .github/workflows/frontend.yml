@@ -59,6 +59,6 @@ jobs:
           application_name: Zadanie 2
           environment_name: Zadanie2-env
           existing_bucket_name: elasticbeanstalk-us-east-1-035784104592
-          version_label: "docker-app-8"
+          version_label: "docker-app-zadanie2-${{ steps.format-time.outputs.replaced }}"
           region: us-east-1
           deployment_package: deploy.zip

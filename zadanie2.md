@@ -14,8 +14,17 @@ W zadaniu należy wykorzystać prostą aplikację, przygotowaną w ramach zadani
 
 1. Proszę uruchomić przygotowaną aplikację na platformie AWS, usługa EBS. W tym celu należy wykorzystać przykład przedstawiony na laboratorium nr 3 (pliki: Lab3_AWS.pdf oraz Lab3_AWS_sources.zip).
 
-2. Wdrożenie aplikacji ma byż zrealizowane w oparciu o GitHub Action i załączony przykład pliku konfiguracyjnego, który jest dostępny na moodle w katalogu Zadanie 2 (plik: zad2_GHActions.zip)
+#### Dodane środowisko w AWS:
+![alt text](images/image1.PNG)
 
+
+2. Wdrożenie aplikacji ma być zrealizowane w oparciu o GitHub Action i załączony przykład pliku konfiguracyjnego, który jest dostępny na moodle w katalogu Zadanie 2 (plik: zad2_GHActions.zip)
+
+#### Zdefiniowane zmienne na GitHub
+![alt text](images/image2.PNG)
+
+
+#### Przygotowany plik frontend.yml:
 ```
 name: GitHub Action
 
@@ -87,6 +96,8 @@ jobs:
 
 3. W sprawozdaniu proszę podać link do repozytorium GitHub oraz link do uruchomionej aplikacji w chmurze AWS.
 
+#### Linki
+
 Repozytorium GitHub: https://github.com/Rafal-Okuniewski/zadanie2
 
 Aplikacja w chmurze AWS: http://zadanie2-env.eba-dq3zwxg2.us-east-1.elasticbeanstalk.com/
@@ -96,6 +107,8 @@ Aplikacja w chmurze AWS: http://zadanie2-env.eba-dq3zwxg2.us-east-1.elasticbeans
 Zadanie w tej części polega na rozbudowaniu pliku wdrożenia w GitHub Action. W ramach tego rozszerzenia:
 
 a. GitHub Ations ma zbudować obraz aplikacji i przesłać go na repozytorium DockerHub. Proszę w tym celu wykorzystać wiedzę i konfigurację przygotowaną w ramach zadania nr 1.
+
+#### Delaracja zbudowania obrazu i przesłania do repozytoriów
 
 ```
   - name: Login to DockerHub
@@ -127,6 +140,7 @@ a. GitHub Ations ma zbudować obraz aplikacji i przesłać go na repozytorium Do
 
 b. Plik Docker Compose ma korzystać z gotowego obrazu (zbudowanego na wcześniejszych etapach pracy GHAction)
 
+### Deklaracja pliku docker-compose.yml
 ```
 version: '3'
 services:
@@ -136,15 +150,19 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     ports:
-      - "5000:5000"
+      - "80:80"
 ```
 
 c. Aplikacja ma zostać wdrożona w chmurze AWS, usługa EBS.
 W sprawozdaniu proszę podać link do repozytorium GitHub, DockerHub oraz link do uruchomionej aplikacji w chmurze AWS. 
+
+#### Linki
 
 Repozytorium GitHub: https://github.com/Rafal-Okuniewski/zadanie2
 
 Repozytorium DockerHub: https://hub.docker.com/repository/docker/s99175/zadanie2
 
 Aplikacja w chmurze AWS: http://zadanie2-env.eba-dq3zwxg2.us-east-1.elasticbeanstalk.com/
+
+![alt text](images/image3.PNG)
 
