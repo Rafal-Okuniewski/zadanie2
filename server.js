@@ -4,8 +4,8 @@ const express = require('express');
 const requestIp = require('request-ip');
 
 // Constants
-const PORT = 5000;
-const HOST = '127.0.0.1';
+const PORT = 80;
+const HOST = '0.0.0.0';
 
 // App
 const app = express();
